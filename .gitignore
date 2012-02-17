@@ -1,0 +1,9 @@
+#IDE-stuff
+.idea
+.settings
+.project
+.classpath
+*.iml
+
+#generated stuff
+target
