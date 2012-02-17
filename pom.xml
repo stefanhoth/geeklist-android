@@ -18,8 +18,14 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>2.3.1</version>
+			<version>2.3.3</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>st.geekli</groupId>
+			<artifactId>geeklist-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
@@ -40,29 +46,6 @@
 		</extensions>
 
 		<resources>
-			<resource>
-				<targetPath>${project.basedir}/target/filtered-manifest</targetPath>
-				<filtering>true</filtering>
-				<directory>${basedir}</directory>
-				<includes>
-					<include>AndroidManifest.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>${project.basedir}/filteredRes</directory>
-				<filtering>true</filtering>
-				<targetPath>${project.basedir}/res/values/</targetPath>
-				<includes>
-					<include>**/*.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>${basedir}/filteredRes</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>**/*.xml</exclude>
-				</excludes>
-			</resource>
 		</resources>
 
 		<plugins>
@@ -205,40 +188,4 @@
 			<url>https://repository.sonatype.org/content/groups/forge</url>
 		</repository>
 	</repositories>
-	<profiles>
-		<profile>
-			<id>obfuscate</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.pyx4me</groupId>
-						<artifactId>proguard-maven-plugin</artifactId>
-						<version>2.0.4</version>
-						<executions>
-							<execution>
-								<phase>process-classes</phase>
-								<goals>
-									<goal>proguard</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<injar>android-classes</injar>
-							<libs>
-								<lib>${java.home}/lib/rt.jar</lib>
-								<lib>${java.home}/lib/jsse.jar</lib>
-							</libs>
-							<proguardInclude>${basedir}/proguard.pro</proguardInclude>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>live</id>
-			<properties>
-				<project.property.application.debuggable>false</project.property.application.debuggable>
-			</properties>
-		</profile>
-	</profiles>
 </project>
