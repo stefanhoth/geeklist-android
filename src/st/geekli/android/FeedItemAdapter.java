@@ -23,11 +23,11 @@ public class FeedItemAdapter extends ArrayAdapter<FeedItem> {
 
 	  private ImageThreadLoader imageLoader = new ImageThreadLoader();
 
-	  public FeedItemAdapter(Context context, int resourceId, List<FeedItem> feedItems) {
-	    super(context, 0, feedItems);
+	  public FeedItemAdapter(Context activityFeedFragment, int resourceId, List<FeedItem> feedItems) {
+	    super(activityFeedFragment, 0, feedItems);
 	    this.resourceId = resourceId;
-	    inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    this.context = context;
+	    inflater = (LayoutInflater)activityFeedFragment.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    this.context = activityFeedFragment;
 	  }
 
 	  @Override

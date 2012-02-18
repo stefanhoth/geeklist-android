@@ -16,17 +16,19 @@ public final class R {
     }
     public static final class id {
         public static final int content=0x7f070002;
-        public static final int feed=0x7f070003;
         public static final int icon=0x7f070000;
-        public static final int preferences=0x7f070006;
-        public static final int profile_name=0x7f070004;
-        public static final int search=0x7f070005;
+        public static final int layout2=0x7f070004;
+        public static final int preferences=0x7f070007;
+        public static final int profile_name=0x7f070003;
+        public static final int search=0x7f070006;
+        public static final int trendinguser=0x7f070005;
         public static final int user=0x7f070001;
     }
     public static final class layout {
         public static final int feeditem=0x7f030000;
         public static final int main=0x7f030001;
         public static final int profile=0x7f030002;
+        public static final int trendinguser=0x7f030003;
     }
     public static final class menu {
         public static final int options_menu=0x7f060000;

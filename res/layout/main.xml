@@ -5,9 +5,17 @@
     android:orientation="vertical" >
 
     <ListView
-            android:id="@+id/feed" 
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <!-- Here is the view to show if the list is emtpy -->
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No items."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

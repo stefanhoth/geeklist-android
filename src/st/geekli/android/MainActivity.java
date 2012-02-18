@@ -1,137 +1,84 @@
 package st.geekli.android;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import android.app.ActionBar;
 import android.app.Activity;
-import android.content.res.Resources;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.app.ActionBar.Tab;
 import android.os.Bundle;
-import android.view.MenuInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	
-	private Resources resources; 
-	
+
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
 		
-		resources = getResources();
+		final ActionBar bar = getActionBar();
+		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+        
+        bar.addTab(bar.newTab()
+        		.setText("ActivityFeed")
+        		.setTabListener(new TabListener<ActivityFeedFragment>(this, "activityfeed", ActivityFeedFragment.class)));
+        bar.addTab(bar.newTab()
+        		.setText("Personal Feed")
+        		.setTabListener(new TabListener<ActivityFeedFragment>(this, "activityfeed", ActivityFeedFragment.class)));
+               
 		
-		ListView feed = (ListView) findViewById(R.id.feed);
-		List<FeedItem> feedItems = new ArrayList<FeedItem>();
-		
-		try {
-			//String rawFeedData = LoadFile("activities.json", false);
-			InputStream is = getResources().openRawResource(R.raw.activites);
-			Writer writer = new StringWriter();
-			char[] buffer = new char[1024];
-			try {
-			    Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-			    int n;
-			    while ((n = reader.read(buffer)) != -1) {
-			        writer.write(buffer, 0, n);
-			    }
-			} finally {
-			    is.close();
-			}
-
-			String rawFeedData = writer.toString();
-			JSONArray jsonActivities    = new JSONArray(rawFeedData);
-			for (int i = 0; i < jsonActivities.length(); i++) {
-				
-				JSONObject activity = jsonActivities.getJSONObject(i);
-				JSONObject user = activity.getJSONObject("user");
-				String activityType = activity.getString("type");
-				JSONObject avatar = user.getJSONObject("avatar");
-				JSONObject gfk = activity.getJSONObject("gfk");
-				FeedItem item = new FeedItem();
-				item.user = user.getString("screen_name");
-				item.thumbnail = avatar.getString("large");
-				if (activityType.equals("micro")) {
-					item.content = gfk.getString("status");
-				} else if (activityType.equals("card")) {
-					item.content = gfk.getString("headline");
-				} else if (activityType.equals("repo_contributor")) {
-					item.content = "contributes to " + gfk.getString("name");
-				} else if (activityType.equals("follow")) {
-					item.content = "follows " + gfk.getString("screen_name");
-				} else if (activityType.equals("ping")) {
-					item.content = "pinged " + gfk.getString("screen_name");
-				}
-				feedItems.add(item);
-				
-				
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
-		FeedItemAdapter adapter = new FeedItemAdapter(this, R.layout.feeditem,
-				feedItems);
-		feed.setAdapter(adapter);
-
 	}
+	
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("tab", getActionBar().getSelectedNavigationIndex());
+    }
+    
+    public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
+        private final Activity mActivity;
+        private final String mTag;
+        private final Class<T> mClass;
+        private final Bundle mArgs;
+        private Fragment mFragment;
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.options_menu, menu);
-		return true;
-	}
+        public TabListener(Activity activity, String tag, Class<T> clz) {
+            this(activity, tag, clz, null);
+        }
 
-	// load file from apps res/raw folder or Assets folder
-	public String LoadFile(String fileName, boolean loadFromRawFolder)
-			throws IOException {
-		// Create a InputStream to read the file into
-		InputStream iS; 
-		
-		if (loadFromRawFolder) {
-			// get the resource id from the file name
-			int rID = resources.getIdentifier("android.geekli.st:raw/"
-					+ fileName, null, null);
-			// get the file as a stream
-			iS = resources.openRawResource(rID);
-		} else {
-			// get the file as a stream
-			iS = resources.getAssets().open(fileName);
-		}
+        public TabListener(Activity activity, String tag, Class<T> clz, Bundle args) {
+            mActivity = activity;
+            mTag = tag;
+            mClass = clz;
+            mArgs = args;
 
-		// create a buffer that has the same size as the InputStream
-		byte[] buffer = new byte[iS.available()];
-		// read the text file as a stream, into the buffer
-		iS.read(buffer);
-		// create a output stream to write the buffer into
-		ByteArrayOutputStream oS = new ByteArrayOutputStream();
-		// write this buffer to the output stream
-		oS.write(buffer);
-		// Close the Input and Output streams
-		oS.close();
-		iS.close();
+            // Check to see if we already have a fragment for this tab, probably
+            // from a previously saved state.  If so, deactivate it, because our
+            // initial state is that a tab isn't shown.
+            mFragment = mActivity.getFragmentManager().findFragmentByTag(mTag);
+            if (mFragment != null && !mFragment.isDetached()) {
+                FragmentTransaction ft = mActivity.getFragmentManager().beginTransaction();
+                ft.detach(mFragment);
+                ft.commit();
+            }
+        }
 
-		// return the output stream as a String
-		return oS.toString();
-	}
+        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+            if (mFragment == null) {
+                mFragment = Fragment.instantiate(mActivity, mClass.getName(), mArgs);
+                ft.add(android.R.id.content, mFragment, mTag);
+            } else {
+                ft.attach(mFragment);
+            }
+        }
+
+        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+            if (mFragment != null) {
+                ft.detach(mFragment);
+            }
+        }
+
+        public void onTabReselected(Tab tab, FragmentTransaction ft) {
+            Toast.makeText(mActivity, "Reselected!", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
