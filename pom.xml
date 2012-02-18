@@ -26,12 +26,12 @@
             <artifactId>gson</artifactId>
             <version>2.0</version>
         </dependency>
-		<!-- <dependency>
+	 <dependency>
 			<groupId>st.geekli</groupId>
 			<artifactId>geeklist-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>runtime</scope>
-		</dependency> -->
+		</dependency>
 	</dependencies>
 
 	<build>
