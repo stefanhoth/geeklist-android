@@ -74,6 +74,10 @@ public class MainActivity extends Activity {
 					item.content = gfk.getString("headline");
 				} else if (activityType.equals("repo_contributor")) {
 					item.content = "contributes to " + gfk.getString("name");
+				} else if (activityType.equals("follow")) {
+					item.content = "follows " + gfk.getString("screen_name");
+				} else if (activityType.equals("ping")) {
+					item.content = "pinged " + gfk.getString("screen_name");
 				}
 				feedItems.add(item);
 				
