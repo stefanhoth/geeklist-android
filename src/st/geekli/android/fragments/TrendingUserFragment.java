@@ -1,4 +1,4 @@
-package st.geekli.android;
+package st.geekli.android.fragments;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -15,7 +15,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import st.geekli.android.ImageThreadLoader.ImageLoadedListener;
+import st.geekli.android.R;
+import st.geekli.android.model.TrendingUserItem;
+import st.geekli.android.thread.ImageThreadLoader;
+import st.geekli.android.thread.ImageThreadLoader.ImageLoadedListener;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;

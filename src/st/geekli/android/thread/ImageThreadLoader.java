@@ -1,4 +1,4 @@
-package st.geekli.android;
+package st.geekli.android.thread;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

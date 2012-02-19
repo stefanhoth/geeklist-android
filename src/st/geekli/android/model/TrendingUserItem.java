@@ -1,4 +1,4 @@
-package st.geekli.android;
+package st.geekli.android.model;
 
 public class TrendingUserItem {
   private String       thumbnail;
