@@ -8,24 +8,33 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import st.geekli.android.ImageThreadLoader.ImageLoadedListener;
+
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 public class ActivityFeedFragment extends ListFragment {
 	private Resources resources;
@@ -61,7 +70,7 @@ public class ActivityFeedFragment extends ListFragment {
 				JSONObject gfk = activity.getJSONObject("gfk");
 				FeedItem item = new FeedItem();
 				item.user = user.getString("screen_name");
-				item.thumbnail = avatar.getString("large");
+				item.thumbnail = avatar.getString("small");
 				if (activityType.equals("micro")) {
 					item.content = gfk.getString("status");
 				} else if (activityType.equals("card")) {
@@ -125,4 +134,60 @@ public class ActivityFeedFragment extends ListFragment {
 		// return the output stream as a String
 		return oS.toString();
 	}
+	public class FeedItemAdapter extends ArrayAdapter<FeedItem> {
+		  private final static String TAG = "MediaItemAdapter";
+		  private int resourceId = 0;
+		  private LayoutInflater inflater;
+		  private Context context;
+
+		  private ImageThreadLoader imageLoader = new ImageThreadLoader();
+
+		  public FeedItemAdapter(Context activityFeedFragment, int resourceId, List<FeedItem> feedItems) {
+		    super(activityFeedFragment, 0, feedItems);
+		    this.resourceId = resourceId;
+		    inflater = (LayoutInflater)activityFeedFragment.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		    this.context = activityFeedFragment;
+		  }
+
+		  @Override
+		  public View getView(int position, View convertView, ViewGroup parent) {
+
+		    View view;
+		    TextView textUser;
+		    TextView textContent;
+		    final ImageView image;
+
+		    view = inflater.inflate(resourceId, parent, false);
+
+		    try {
+		      textUser = (TextView)view.findViewById(R.id.user);
+		      textContent = (TextView)view.findViewById(R.id.content);
+		      image = (ImageView)view.findViewById(R.id.icon);
+		    } catch( ClassCastException e ) {
+		      Log.e(TAG, "Your layout must provide an image and a text view with ID's icon and text.", e);
+		      throw e;
+		    }
+
+		    FeedItem item = getItem(position);
+		    Bitmap cachedImage = null;
+		    try {
+		      cachedImage = imageLoader.loadImage(item.thumbnail, new ImageLoadedListener() {
+		      public void imageLoaded(Bitmap imageBitmap) {
+		      image.setImageBitmap(imageBitmap);
+		      notifyDataSetChanged();                }
+		      });
+		    } catch (MalformedURLException e) {
+		      Log.e(TAG, "Bad remote image URL: " + item.thumbnail, e);
+		    }
+
+		    textUser.setText(item.user);
+		    textContent.setText(item.content);
+
+		    if( cachedImage != null ) {
+		      image.setImageBitmap(cachedImage);
+		    }
+
+		    return view;
+		  }
+		}
 }

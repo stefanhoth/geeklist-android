@@ -94,7 +94,7 @@ public class TrendingUserFragment extends Fragment {
 	public class TrendingUsersAdapter extends PagerAdapter {
 
 		private final Context mContext;
-		private List<FeedItem> feedItems; 
+		private List<TrendingUserItem> trendingUserItems; 
 		private int resourceId = 0;
 		private final static String TAG = "TrendingUsersAdapter";
 		private ImageThreadLoader imageLoader = new ImageThreadLoader();
@@ -103,10 +103,10 @@ public class TrendingUserFragment extends Fragment {
 			mContext = c;
 			this.resourceId = resourceId; 
 			
-			feedItems = new ArrayList<FeedItem>(); 
+			trendingUserItems = new ArrayList<TrendingUserItem>(); 
 			try {
 				// String rawFeedData = LoadFile("activities.json", false);
-				InputStream is = getResources().openRawResource(R.raw.activites);
+				InputStream is = getResources().openRawResource(R.raw.trendingusers);
 				Writer writer = new StringWriter();
 				char[] buffer = new char[1024];
 				try {
@@ -130,7 +130,7 @@ public class TrendingUserFragment extends Fragment {
 					JSONObject avatar = user.getJSONObject("avatar");
 					JSONObject gfk = activity.getJSONObject("gfk");
 					
-					FeedItem item = new FeedItem();
+					TrendingUserItem item = new TrendingUserItem();
 					item.user = user.getString("screen_name");
 					item.thumbnail = avatar.getString("large");
 					if (activityType.equals("micro")) {
@@ -144,7 +144,7 @@ public class TrendingUserFragment extends Fragment {
 					} else if (activityType.equals("ping")) {
 						item.content = "pinged " + gfk.getString("screen_name");
 					}
-					feedItems.add(item);
+					trendingUserItems.add(item);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -154,11 +154,11 @@ public class TrendingUserFragment extends Fragment {
 		}
 		@Override
 		public int getCount() {
-			return feedItems.size();
+			return trendingUserItems.size();
 		}
 
-		public FeedItem getItem(int position) {
-			return feedItems.get(position);
+		public TrendingUserItem getItem(int position) {
+			return trendingUserItems.get(position);
 		}
 
  
@@ -182,7 +182,7 @@ public class TrendingUserFragment extends Fragment {
 		      throw e;
 		    }
 
-		    FeedItem item = getItem(position);
+		    TrendingUserItem item = getItem(position);
 		    Bitmap cachedImage = null;
 		    try {
 		      cachedImage = imageLoader.loadImage(item.thumbnail, new ImageLoadedListener() {
