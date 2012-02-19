@@ -16,12 +16,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import st.geekli.android.ImageThreadLoader.ImageLoadedListener;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -95,7 +95,7 @@ public class TrendingUserFragment extends Fragment {
       trendingUserItems = new ArrayList<TrendingUserItem>();
       try {
         // String rawFeedData = LoadFile("activities.json", false);
-        InputStream is = getResources().openRawResource(R.raw.trendingusers);
+        InputStream is = resources.openRawResource(R.raw.trendingusers);
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
         try {
@@ -134,10 +134,8 @@ public class TrendingUserFragment extends Fragment {
           trendingUserItems.add(item);
         }
       } catch (Exception e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
-
     }
 
     @Override
@@ -201,13 +199,11 @@ public class TrendingUserFragment extends Fragment {
     @Override
     public boolean isViewFromObject(View arg0, Object arg1) {
       return arg0 == ((View) arg1);
-
     }
 
     @Override
     public Parcelable saveState() {
       return null;
     }
-
   }
 }
