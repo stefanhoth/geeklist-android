@@ -1,11 +1,14 @@
 package st.geekli.android;
 
+import android.R.anim;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -16,16 +19,25 @@ public class MainActivity extends Activity {
 		
 		final ActionBar bar = getActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-        
+        bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE); 
         bar.addTab(bar.newTab()
         		.setText("ActivityFeed")
         		.setTabListener(new TabListener<ActivityFeedFragment>(this, "activityfeed", ActivityFeedFragment.class)));
         bar.addTab(bar.newTab()
         		.setText("Personal Feed")
-        		.setTabListener(new TabListener<ActivityFeedFragment>(this, "activityfeed", ActivityFeedFragment.class)));
-               
+        		.setTabListener(new TabListener<ActivityFeedFragment>(this, "personalfeed", ActivityFeedFragment.class)));
+        bar.addTab(bar.newTab()
+        		.setText("Trending User")
+        		.setTabListener(new TabListener<TrendingUserFragment>(this, "trendingusers", TrendingUserFragment.class)));
+                           
 		
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options_menu, menu);
+		return true;
 	}
 	
     @Override
