@@ -1,6 +1,7 @@
 package st.geekli.android.activities;
 
 import st.geekli.android.Api;
+import st.geekli.android.Configuration;
 import st.geekli.android.R;
 import st.geekli.api.GeeklistApiException;
 import android.app.Activity;
@@ -9,8 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 
 public class AuthActivity extends Activity {
-  private Activity activity;
   private EditText oobCodeView;
+  private Activity activity;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -21,12 +22,17 @@ public class AuthActivity extends Activity {
   }
 
   public void onOkClick(View view) {
-    String code = oobCodeView.getText().toString();
-    try {
-      String foo = Api.getApi().authorize(code);
-    } catch (GeeklistApiException e) {
-      e.printStackTrace();
-    }
+    final String code = oobCodeView.getText().toString();
+    final String token = Configuration.OAUTH_REQUEST;
+    new Thread() {
+      public void run() {
+        try {
+          Api.getApi().getAccessToken(token, code);
+        } catch (GeeklistApiException e) {
+          e.printStackTrace();
+        }
+      }
+    }.start();
   }
 
   public void onAuthClick(View view) {

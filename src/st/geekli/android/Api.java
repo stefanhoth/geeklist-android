@@ -17,7 +17,7 @@ public class Api {
       public void run() {
         api = new GeeklistApi(Configuration.CONSUMER_KEY, Configuration.CONSUMER_SECRET, false);
         try {
-          Configuration.OAUTH_REQUEST = api.getRequestToken(Configuration.CALLBACK_URL);
+          Configuration.OAUTH_REQUEST = api.getRequestToken();
           BrowserUtils.openBrowserWithUrl(activity, Configuration.OAUTH_REQUEST);
         } catch (GeeklistApiException e) {
           e.printStackTrace();

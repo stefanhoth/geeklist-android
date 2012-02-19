@@ -21,8 +21,6 @@
 			<version>2.3.3</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- <dependency> <groupId>android.support</groupId> <artifactId>compatibility-v4</artifactId> 
-			<version>r6</version> </dependency> -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -31,8 +29,19 @@
 		<dependency>
 			<groupId>st.geekli</groupId>
 			<artifactId>geeklist-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.8.0-SNAPSHOT</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>plugin-support-lib</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>library</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
+			<type>apklib</type>
 		</dependency>
 	</dependencies>
 
@@ -184,6 +193,10 @@
 		</pluginManagement>
 	</build>
 	<repositories>
+		<repository>
+			<id>jakewharton</id>
+			<url>http://r.jakewharton.com/maven/snapshot/</url>
+		</repository>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Repository for Maven</name>
