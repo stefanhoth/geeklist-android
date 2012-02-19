@@ -15,18 +15,17 @@
 ** limitations under the License.
 */
 -->
-<!-- Options Menu for SearchableActivity and WordActivity.
- -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/search"
-          android:title="@string/hello"
-          android:icon="@drawable/ic_launcher"
-          android:showAsAction="always"
-          android:actionViewClass="android.widget.SearchView" />
-    
-    <item android:id="@+id/preferences"
-          android:title="@string/hello"
-          android:icon="@android:drawable/ic_menu_preferences"
-          android:showAsAction="always" />
-        
+<!--  Options Menu for SearchableActivity and WordActivity. -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/search"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@drawable/ic_launcher"
+        android:showAsAction="always"/>
+    <item
+        android:id="@+id/preferences"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:showAsAction="never"/>
+
 </menu>

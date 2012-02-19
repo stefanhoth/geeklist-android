@@ -1,6 +1,5 @@
 package st.geekli.android;
 
-import st.geekli.android.R;
 import st.geekli.android.fragments.ActivityFeedFragment;
 import st.geekli.android.fragments.TrendingUserFragment;
 import android.app.ActionBar;
@@ -14,26 +13,28 @@ import android.view.MenuInflater;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+  private ActionBar bar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    final ActionBar bar = getActionBar();
+    bar = getActionBar();
+    bar.setTitle(R.string.app_name);
     bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-    bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+    bar.setDisplayShowTitleEnabled(true);
     bar.addTab(bar.newTab()
-                  .setText("ActivityFeed")
+                  .setText(R.string.tab_activity_feed)
                   .setTabListener(new TabListener<ActivityFeedFragment>(this,
                                                                         "activityfeed",
                                                                         ActivityFeedFragment.class)));
     bar.addTab(bar.newTab()
-                  .setText("Personal Feed")
+                  .setText(R.string.tab_personal_feed)
                   .setTabListener(new TabListener<ActivityFeedFragment>(this,
                                                                         "personalfeed",
                                                                         ActivityFeedFragment.class)));
     bar.addTab(bar.newTab()
-                  .setText("Trending User")
+                  .setText(R.string.tab_trending_users)
                   .setTabListener(new TabListener<TrendingUserFragment>(this,
                                                                         "trendingusers",
                                                                         TrendingUserFragment.class)));

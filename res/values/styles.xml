@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources> 
+<resources>
+
     <style name="MyActionBarTabStyle" parent="android:style/Widget.Holo.Light.ActionBar.TabView">
-    	<item name="android:background">@drawable/actionbar_tab_bg</item>
-    	<item name="android:paddingLeft">32dp</item>
-    	<item name="android:paddingRight">32dp</item>
-	</style>
-	
-    
+        <item name="android:background">@drawable/actionbar_tab_bg</item>
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">32dp</item>
+    </style>
+
     <style name="Theme.GeekList.Light" parent="android:style/Theme.Holo.Light">
         <item name="android:actionBarTabStyle">@style/MyActionBarTabStyle</item>
     </style>
-</resources> 
+
+</resources>

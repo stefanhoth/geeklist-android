@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World!</string>
-    <string name="app_name">Geekli.st</string>
+    <string name="app_name">geekli.st</string>
     <string name="button_auth">Authenticate yourself like a boss</string>
+    <string name="tab_activity_feed">Activity Feed</string>
+    <string name="tab_personal_feed">Personal Feed</string>
+    <string name="tab_trending_users">Trending Users</string>
 
 </resources>
