@@ -10,7 +10,7 @@ public class Configuration {
   public static final String      PREFERENCE_ACCESS_TOKEN_SECRET = "accessTokenSecret";
   public static final String      CONSUMER_KEY                   = "LKwGmWaARE9K1M9eNmDgQZlr_VI";
   public static final String      CONSUMER_SECRET                = "fzdra06nX-Gm_2EuFq6ydQzirR-HHITXR6CpF-oNHN8";
-  public static final String      CALLBACK_URL                   = "geeklist";
+  public static final String      CALLBACK_URL                   = "geeklist-android-app";
   public static String            OAUTH_REQUEST;
   public static String            ACCESS_TOKEN;
   public static String            ACCESS_TOKEN_SECRET;

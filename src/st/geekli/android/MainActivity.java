@@ -1,5 +1,6 @@
 package st.geekli.android;
 
+import st.geekli.android.activities.AuthActivity;
 import st.geekli.android.fragments.ActivityFeedFragment;
 import st.geekli.android.fragments.TrendingUserFragment;
 import android.app.ActionBar;
@@ -7,6 +8,7 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +20,10 @@ public class MainActivity extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    if (!Configuration.isAuth(this)) {
+      startActivity(new Intent(this, AuthActivity.class));
+    }
 
     bar = getActionBar();
     bar.setTitle(R.string.app_name);

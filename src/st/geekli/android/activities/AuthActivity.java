@@ -4,33 +4,28 @@ import st.geekli.android.Api;
 import st.geekli.android.R;
 import st.geekli.api.GeeklistApiException;
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
 
 public class AuthActivity extends Activity {
   private Activity activity;
+  private EditText oobCodeView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.auth);
+    oobCodeView = (EditText) findViewById(R.id.auth_oob_code);
     activity = this;
   }
 
-  @Override
-  public void onResume() {
-    super.onResume();
-    Uri uri = getIntent().getData();
-    if (uri != null) {
-      Toast.makeText(activity, uri.toString(), Toast.LENGTH_LONG).show();
-      String oauth_verifier = uri.getQueryParameter("oauth_verifier");
-      try {
-        Api.getApi().getAccessToken(null, oauth_verifier);
-      } catch (GeeklistApiException e) {
-        e.printStackTrace();
-      }
+  public void onOkClick(View view) {
+    String code = oobCodeView.getText().toString();
+    try {
+      String foo = Api.getApi().authorize(code);
+    } catch (GeeklistApiException e) {
+      e.printStackTrace();
     }
   }
 
