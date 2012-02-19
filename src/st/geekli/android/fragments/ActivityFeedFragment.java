@@ -36,11 +36,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ActivityFeedFragment extends ListFragment {
-  private Resources resources;
+  private android.app.Activity activity;
+  private Resources            resources;
+  private FeedItemAdapter      adapter;
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
+    activity = getActivity();
+    getFeeds();
+  }
+
+  public void getFeeds() {
     List<FeedItem> feedItems = new ArrayList<FeedItem>();
     try {
       // String rawFeedData = LoadFile("activities.json", false);
@@ -81,13 +88,11 @@ public class ActivityFeedFragment extends ListFragment {
         }
         feedItems.add(item);
       }
+      FeedItemAdapter adapter = new FeedItemAdapter(getActivity(), R.layout.feeditem, feedItems);
+      setListAdapter(adapter);
     } catch (Exception e) {
       e.printStackTrace();
     }
-
-    FeedItemAdapter adapter = new FeedItemAdapter(getActivity(), R.layout.feeditem, feedItems);
-
-    setListAdapter(adapter);
   }
 
   @Override

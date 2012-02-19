@@ -47,6 +47,13 @@ public class MainActivity extends Activity {
 
   }
 
+  public void onResume() {
+    super.onResume();
+    if (Configuration.isAuth(this)) {
+      Api.initApiWithCreds(this);
+    }
+  }
+
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();

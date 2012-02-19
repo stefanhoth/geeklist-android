@@ -12,17 +12,4 @@
         android:onClick="onAuthClick"
         android:text="@string/button_auth" />
 
-    <EditText
-        android:id="@+id/auth_oob_code"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:hint="@string/auth_hint" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onOkClick"
-        android:text="@string/button_ok" />
-
 </LinearLayout>

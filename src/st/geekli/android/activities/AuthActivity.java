@@ -5,37 +5,48 @@ import st.geekli.android.Configuration;
 import st.geekli.android.R;
 import st.geekli.api.GeeklistApiException;
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
 public class AuthActivity extends Activity {
-  private EditText oobCodeView;
   private Activity activity;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.auth);
-    oobCodeView = (EditText) findViewById(R.id.auth_oob_code);
     activity = this;
   }
 
-  public void onOkClick(View view) {
-    final String code = oobCodeView.getText().toString();
-    final String token = Configuration.OAUTH_REQUEST;
-    new Thread() {
-      public void run() {
-        try {
-          Api.getApi().getAccessToken(token, code);
-        } catch (GeeklistApiException e) {
-          e.printStackTrace();
+  public void onResume() {
+    super.onResume();
+    Uri uri = getIntent().getData();
+    if (uri != null) {
+      System.out.println(uri.toString());
+      final String oauth_verifier = uri.getQueryParameter("oauth_verifier");
+      new Thread() {
+        public void run() {
+          try {
+            Api.getApi(activity).getAccessToken(null, oauth_verifier);
+            String accessToken = Api.getApi(activity).getOAuthToken();
+            String accessTokenSecret = Api.getApi(activity).getOAuthTokenSecret();
+            Configuration.saveAccessData(activity, accessToken, accessTokenSecret);
+            activity.runOnUiThread(new Runnable() {
+              public void run() {
+                activity.finish();
+              }
+            });
+          } catch (GeeklistApiException e) {
+            e.printStackTrace();
+          }
         }
-      }
-    }.start();
+      }.start();
+    }
   }
 
   public void onAuthClick(View view) {
     Api.initApi(this);
+    view.setEnabled(false);
   }
 }
