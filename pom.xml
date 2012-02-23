@@ -10,6 +10,7 @@
 	<name>geekli.st</name>
 
 	<properties>
+		<abs.version>4.0.0-SNAPSHOT</abs.version>
 		<project.property.version>${project.version}</project.property.version>
 		<project.property.application.debuggable>true</project.property.application.debuggable>
 	</properties>
@@ -35,12 +36,19 @@
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>plugin-support-lib</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>${abs.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>library</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>${abs.version}</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>library</artifactId>
+			<version>${abs.version}</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>
