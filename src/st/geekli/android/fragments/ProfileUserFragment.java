@@ -30,6 +30,7 @@ public class ProfileUserFragment extends Fragment {
   private ImageView imageView;
   private Activity  activity;
   private TextView  screenName, userName, location;
+  private ImageThreadLoader loader = new ImageThreadLoader();
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
@@ -55,7 +56,6 @@ public class ProfileUserFragment extends Fragment {
     new Thread() {
       public void run() {
         Looper.prepare();
-        ImageThreadLoader loader = new ImageThreadLoader();
         final Bitmap cache;
         try {
           System.out.println("a: " + user.getAvatar().getLarge());
