@@ -2,6 +2,7 @@ package st.geekli.android;
 
 import st.geekli.android.activities.AuthActivity;
 import st.geekli.android.fragments.ActivityFeedFragment;
+import st.geekli.android.fragments.ProfileUserFragment;
 import st.geekli.android.fragments.TrendingUserFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +39,9 @@ public class MainActivity extends SherlockFragmentActivity {
     actionBar.addTab(actionBar.newTab()
                               .setText(getString(R.string.tab_trending_users))
                               .setTabListener(new GeekTabListener(new TrendingUserFragment())));
+    actionBar.addTab(actionBar.newTab()
+                              .setText(getString(R.string.tab_profile))
+                              .setTabListener(new GeekTabListener(new ProfileUserFragment())));
   }
 
   public void onResume() {
