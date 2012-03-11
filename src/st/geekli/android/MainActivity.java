@@ -17,10 +17,10 @@ import com.actionbarsherlock.view.Menu;
 public class MainActivity extends SherlockFragmentActivity {
   private ActionBar actionBar;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
+
     if (!Configuration.isAuth(this)) {
       startActivity(new Intent(this, AuthActivity.class));
     }
@@ -47,6 +47,7 @@ public class MainActivity extends SherlockFragmentActivity {
     }
   }
 
+  @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getSupportMenuInflater().inflate(R.menu.options_menu, menu);
     return true;
@@ -67,12 +68,14 @@ public class MainActivity extends SherlockFragmentActivity {
 
     @Override
     public void onTabUnselected(Tab arg0, FragmentTransaction ft) {
-      ft.remove(mFragment);
+      getSupportFragmentManager().beginTransaction().remove(mFragment).commit();
     }
 
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
-      ft.add(R.id.tabcontent, mFragment, "");
+      if (mFragment != null) {
+        getSupportFragmentManager().beginTransaction().add(R.id.tabcontent, mFragment, "").commit();
+      }
     }
 
     @Override
