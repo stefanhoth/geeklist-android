@@ -6,8 +6,10 @@
     <string name="tab_activity_feed">Activity Feed</string>
     <string name="tab_personal_feed">Personal Feed</string>
     <string name="tab_trending_users">Trending Users</string>
+    <string name="tab_profile">Profile</string>
     <string name="auth_hint">OAuth OOB Code</string>
     <string name="button_accept">Accept</string>
     <string name="button_cancel">Cancel</string>
+    <string name="username">username</string>
 
 </resources>
