@@ -98,7 +98,7 @@ public class TrendingUserFragment extends Fragment {
       trendingUserItems = new ArrayList<TrendingUserItem>();
       try {
         // String rawFeedData = LoadFile("activities.json", false);
-        InputStream is = resources.openRawResource(R.raw.trendingusers);
+        InputStream is = getResources().openRawResource(R.raw.trendingusers);
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
         try {
