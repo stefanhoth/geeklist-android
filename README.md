@@ -9,11 +9,12 @@ The app itself utilizes [ActionBarSherlock Version 4] for compability with Andro
 
 Commiters
 -----------------
-Owner: [Stefan Hoth]
-Code-Slaves:
-[Hasan Hosgel]
-[Tim Messerschmidt]
-[Krzysiek Bielicki]
+Owner<br/>
+[Stefan Hoth]<br/>
+Code-Slaves<br/>
+[Hasan Hosgel]<br/>
+[Tim Messerschmidt]<br/>
+[Krzysiek Bielicki]<br/>
 
 
 [geeklist Java SDK]: https://github.com/stefanhoth/geeklist-sdk-java
