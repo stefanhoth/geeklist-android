@@ -2,7 +2,6 @@
 <resources>
 
     <style name="Theme.GeekList" parent="Theme.Sherlock.Light">
-        <item name="android:actionBarTabStyle">@style/Theme.GeekList.Tabs</item>
         <item name="actionBarTabStyle">@style/Theme.GeekList.Tabs</item>
     </style>
 
