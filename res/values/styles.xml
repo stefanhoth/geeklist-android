@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<<<<<<< HEAD
     <style name="Theme.GeekList.Light" parent="Theme.Sherlock.Light">
+=======
+    <style name="Theme.GeekList" parent="Theme.Sherlock.Light">
+>>>>>>> ee7f338b0a99fc975735448c73136ea27ac9be84
         <item name="actionBarTabStyle">@style/Theme.GeekList.Tabs</item>
     </style>
 
