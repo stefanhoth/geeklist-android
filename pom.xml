@@ -30,9 +30,14 @@
 		<dependency>
 			<groupId>st.geekli</groupId>
 			<artifactId>geeklist-api</artifactId>
-			<version>0.8.0-SNAPSHOT</version>
+			<version>0.8.1-SNAPSHOT</version>
 			<scope>runtime</scope>
 		</dependency>
+<<<<<<< HEAD
+=======
+		<!-- <dependency> <groupId>com.actionbarsherlock</groupId> <artifactId>plugin-support-lib</artifactId> 
+			<version>${abs.version}</version> </dependency> -->
+>>>>>>> b2b52f93a923d9862c8fa203b7c6ffc12be02c20
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>library</artifactId>
