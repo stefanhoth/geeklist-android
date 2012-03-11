@@ -15,7 +15,7 @@ Code-Slaves<br/>
 [Hasan Hosgel]<br/>
 [Tim Messerschmidt]<br/>
 [Krzysiek Bielicki]<br/>
-
+[Mario Scheliga]<br/> 
 
 [geeklist Java SDK]: https://github.com/stefanhoth/geeklist-sdk-java
 [ActionBarSherlock Version 4]: https://github.com/JakeWharton/ActionBarSherlocki
@@ -23,3 +23,4 @@ Code-Slaves<br/>
 [Hasan Hosgel]: https://github.com/alosdev
 [Tim Messerschmidt]: https://github.com/seraphimserapis
 [Stefan Hoth]: https://github.com/stefanhoth
+[Mario Scheliga]: https://github.com/marsch
