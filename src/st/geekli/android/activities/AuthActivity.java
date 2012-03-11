@@ -28,9 +28,9 @@ public class AuthActivity extends Activity {
       new Thread() {
         public void run() {
           try {
-            Api.getApi(activity).getAccessToken(null, oauth_verifier);
-            String accessToken = Api.getApi(activity).getOAuthToken();
-            String accessTokenSecret = Api.getApi(activity).getOAuthTokenSecret();
+            Api.getApi(activity).retrieveAccessToken(oauth_verifier);
+            String accessToken = Api.getApi(activity).getAccessToken();
+            String accessTokenSecret = Api.getApi(activity).getAccessTokenSecret();
             Configuration.saveAccessData(activity, accessToken, accessTokenSecret);
             activity.runOnUiThread(new Runnable() {
               public void run() {

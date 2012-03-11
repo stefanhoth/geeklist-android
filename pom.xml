@@ -10,16 +10,16 @@
 	<name>geekli.st</name>
 
 	<properties>
-		<abs.version>4.0.0-SNAPSHOT</abs.version>
+		<abs.version>4.0.0-RC1</abs.version>
 		<project.property.version>${project.version}</project.property.version>
 		<project.property.application.debuggable>true</project.property.application.debuggable>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.google.android</groupId>
+			<groupId>android</groupId>
 			<artifactId>android</artifactId>
-			<version>2.3.3</version>
+			<version>4.0.3_r2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -37,13 +37,6 @@
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>plugin-support-lib</artifactId>
 			<version>${abs.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>library</artifactId>
-			<version>${abs.version}</version>
-			<type>jar</type>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
@@ -84,8 +77,6 @@
 						<platform>15</platform>
 					</sdk>
 					<deleteConflictingFiles>true</deleteConflictingFiles>
-					<androidManifestFile>${project.build.directory}/filtered-manifest/AndroidManifest.xml
-					</androidManifestFile>
 					<sign>
 						<debug>false</debug>
 					</sign>
@@ -203,7 +194,7 @@
 	<repositories>
 		<repository>
 			<id>jakewharton</id>
-			<url>http://r.jakewharton.com/maven/snapshot/</url>
+			<url>http://r.jakewharton.com/maven/release/</url>
 		</repository>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>

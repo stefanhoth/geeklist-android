@@ -19,11 +19,11 @@ import st.geekli.android.R;
 import st.geekli.android.model.FeedItem;
 import st.geekli.android.thread.ImageThreadLoader;
 import st.geekli.android.thread.ImageThreadLoader.ImageLoadedListener;
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -95,7 +95,6 @@ public class ActivityFeedFragment extends ListFragment {
     }
   }
 
-  @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     // Place an action bar item for searching.
     MenuItem item = menu.add("Search");

@@ -3,19 +3,21 @@ package st.geekli.android;
 import st.geekli.android.activities.AuthActivity;
 import st.geekli.android.fragments.ActivityFeedFragment;
 import st.geekli.android.fragments.TrendingUserFragment;
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
-  private ActionBar bar;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockActivity;
+
+public class MainActivity extends SherlockActivity {
+  private ActionBar       bar;
+  private FragmentManager fragmentManager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,7 @@ public class MainActivity extends Activity {
       startActivity(new Intent(this, AuthActivity.class));
     }
 
-    bar = getActionBar();
+    bar = getSupportActionBar();
     bar.setTitle(R.string.app_name);
     bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     bar.setDisplayShowTitleEnabled(true);
@@ -54,20 +56,17 @@ public class MainActivity extends Activity {
     }
   }
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.options_menu, menu);
-    return true;
-  }
-
+  /**
+   * public boolean onCreateOptionsMenu(Menu menu) { MenuInflater inflater = getMenuInflater();
+   * inflater.inflate(R.menu.options_menu, menu); return true; }
+   */
   @Override
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
     outState.putInt("tab", getActionBar().getSelectedNavigationIndex());
   }
 
-  public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
+  public class TabListener<T extends Fragment> implements ActionBar.TabListener {
     private final Activity mActivity;
     private final String   mTag;
     private final Class<T> mClass;
@@ -87,9 +86,9 @@ public class MainActivity extends Activity {
       // Check to see if we already have a fragment for this tab, probably
       // from a previously saved state.  If so, deactivate it, because our
       // initial state is that a tab isn't shown.
-      mFragment = mActivity.getFragmentManager().findFragmentByTag(mTag);
+      mFragment = fragmentManager.findFragmentByTag(mTag);
       if (mFragment != null && !mFragment.isDetached()) {
-        FragmentTransaction ft = mActivity.getFragmentManager().beginTransaction();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.detach(mFragment);
         ft.commit();
       }
