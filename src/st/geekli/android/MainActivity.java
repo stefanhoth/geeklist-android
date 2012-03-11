@@ -4,7 +4,6 @@ import st.geekli.android.activities.LoginActivity;
 import st.geekli.android.fragments.ActivityFeedFragment;
 import st.geekli.android.fragments.ProfileUserFragment;
 import st.geekli.android.fragments.TrendingUserFragment;
-import st.geekli.api.GeeklistApiException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -51,25 +50,6 @@ public class MainActivity extends SherlockFragmentActivity {
                               .setTabListener(new GeekTabListener(new ProfileUserFragment())));
   }
 
-  public void onResume() {
-    super.onResume();
-    if (Configuration.isAuth(this)) {
-      Api.initApiWithCreds(this);
-      new Thread() {
-        public void run() {
-          try {
-            System.out.println(Api.getApi(activity).getUser().getName());
-          } catch (GeeklistApiException e) {
-            e.printStackTrace();
-          }
-        }
-      }.start();
-    } else {
-      showLoginDialog();
-    }
-      
-  }
-
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getSupportMenuInflater().inflate(R.menu.options_menu, menu);
@@ -112,6 +92,7 @@ public class MainActivity extends SherlockFragmentActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         startActivity(new Intent(activity, LoginActivity.class));
+        dialog.dismiss();
       }
     });
     builder.setNegativeButton(R.string.button_cancel, new OnClickListener() {
@@ -123,7 +104,7 @@ public class MainActivity extends SherlockFragmentActivity {
     builder.setCancelable(false);
     builder.create().show();
   }
-  
+
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == R.id.requestcode_login) {

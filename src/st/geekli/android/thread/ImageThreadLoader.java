@@ -61,7 +61,6 @@ public class ImageThreadLoader {
       synchronized (this) {
         while (Queue.size() > 0) {
           final QueueItem item = Queue.remove(0);
-
           // If in the cache, return that copy and be done
           if (Cache.containsKey(item.url.toString()) && Cache.get(item.url.toString()) != null) {
             // Use a handler to get back onto the UI thread for the update

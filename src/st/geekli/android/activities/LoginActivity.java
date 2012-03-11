@@ -15,9 +15,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class LoginActivity extends Activity {
-  private Activity activity;
+  private Activity      activity;
   private CookieManager cookieManager;
-  private WebView web;
+  private WebView       web;
 
   public static void startActivityForResult(final Activity start) {
     Intent intent = new Intent(start, LoginActivity.class);
@@ -34,44 +34,44 @@ public class LoginActivity extends Activity {
     cookieManager = CookieManager.getInstance();
     web.getSettings().setJavaScriptEnabled(true);
     web.setWebViewClient(new WebViewClient() {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-          if (url.startsWith(Configuration.CALLBACK_URL)) {
-            Uri uri = Uri.parse(url);
-            String state = uri.getQueryParameter("state");
-            if ("authorized".equals(state)) {
-              final String verifier = uri.getQueryParameter("oauth_verifier");
-              new Thread() {
-                public void run() {
-                  try {
-                    Api.getApi(activity).retrieveAccessToken(verifier);
-                    String accessToken = Api.getApi(activity).getAccessToken();
-                    String accessTokenSecret = Api.getApi(activity).getAccessTokenSecret();
-                    Configuration.saveAccessData(activity, accessToken, accessTokenSecret);
-                    activity.runOnUiThread(new Runnable() {
-                      public void run() {
-                        backToPreferencesView(true);
-                      }
-                    });
-                  } catch (GeeklistApiException e) {
-                    e.printStackTrace();
-                    backToPreferencesView(false);
-                  }
+      @Override
+      public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        System.out.println("url: " + url);
+        if (url.startsWith(Configuration.CALLBACK_URL)) {
+          Uri uri = Uri.parse(url);
+          final String verifier = uri.getQueryParameter("oauth_verifier");
+          if (!verifier.equals("")) {
+            new Thread() {
+              public void run() {
+                try {
+                  Api.getApi(activity).retrieveAccessToken(verifier);
+                  String accessToken = Api.getApi(activity).getAccessToken();
+                  String accessTokenSecret = Api.getApi(activity).getAccessTokenSecret();
+                  Configuration.saveAccessData(activity, accessToken, accessTokenSecret);
+                  System.out.println("oauth: " + verifier);
+                  activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                      backToPreferencesView(true);
+                    }
+                  });
+                } catch (GeeklistApiException e) {
+                  e.printStackTrace();
+                  backToPreferencesView(false);
                 }
-              }.start();
-              
-            } else {
-              backToPreferencesView(false);
-            }
+              }
+            }.start();
           } else {
-            view.loadUrl(url);
+            backToPreferencesView(false);
           }
-          return true;
+        } else {
+          view.loadUrl(url);
         }
-      });
+        return true;
+      }
+    });
 
     Api.initApi(this, new ApiListener() {
-      
+
       @Override
       public void isInit() {
         activity.runOnUiThread(new Runnable() {
@@ -89,8 +89,8 @@ public class LoginActivity extends Activity {
   }
 
   void backToPreferencesView(final boolean isSuccess) {
-    Intent i = new Intent();
-    setResult(isSuccess ? RESULT_OK : RESULT_CANCELED, i);
+    Intent intent = new Intent();
+    setResult(isSuccess ? RESULT_OK : RESULT_CANCELED, intent);
     cookieManager.removeAllCookie();
     finish();
   }

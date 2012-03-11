@@ -3,22 +3,93 @@ package st.geekli.android.fragments;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 
+import st.geekli.android.Api;
+import st.geekli.android.Configuration;
 import st.geekli.android.R;
+import st.geekli.android.thread.ImageThreadLoader;
+import st.geekli.android.thread.ImageThreadLoader.ImageLoadedListener;
+import st.geekli.api.GeeklistApiException;
+import st.geekli.api.type.User;
+import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ProfileUserFragment extends Fragment {
   private Resources resources;
+  private User      user;
+  private ImageView imageView;
+  private Activity  activity;
+  private TextView  screenName, userName, location;
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     resources = getResources();
+    activity = getActivity();
+    if (Configuration.isAuth(getActivity())) {
+      Api.initApiWithCreds(getActivity());
+      new Thread() {
+        public void run() {
+          try {
+            user = Api.getApi(getActivity()).getUser();
+            handleUser(user);
+          } catch (GeeklistApiException e) {
+            e.printStackTrace();
+          }
+        }
+      }.start();
+    }
+  }
+
+  private void handleUser(final User user) {
+    new Thread() {
+      public void run() {
+        Looper.prepare();
+        ImageThreadLoader loader = new ImageThreadLoader();
+        final Bitmap cache;
+        try {
+          System.out.println("a: " + user.getAvatar().getLarge());
+          cache = loader.loadImage(user.getAvatar().getLarge(), new ImageLoadedListener() {
+            @Override
+            public void imageLoaded(final Bitmap imageBitmap) {
+              activity.runOnUiThread(new Runnable() {
+                public void run() {
+                  System.out.println("null: " + imageBitmap != null);
+                  imageView.setImageBitmap(imageBitmap);
+                }
+              });
+            }
+          });
+          if (cache != null) {
+            activity.runOnUiThread(new Runnable() {
+              public void run() {
+                imageView.setImageBitmap(cache);
+              }
+            });
+          }
+        } catch (MalformedURLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        activity.runOnUiThread(new Runnable() {
+          public void run() {
+            userName.setText(user.getName());
+            screenName.setText(user.getScreenName());
+            location.setText(user.getLocation());
+          }
+        });
+      }
+    }.start();
   }
 
   /**
@@ -27,19 +98,11 @@ public class ProfileUserFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.profile, container, false);
-//    Bitmap cachedImage = null;
-//    ImageThreadLoader imageLoader = new ImageThreadLoader();
-//    try {
-//      cachedImage = imageLoader.loadImage(item.getThumbnail(), new ImageLoadedListener() {
-//        public void imageLoaded(Bitmap imageBitmap) {
-//          image.setImageBitmap(imageBitmap);
-//        }
-//      });
-//    } catch (MalformedURLException e) {
-//      Log.e(TAG, "Bad remote image URL: " + item.getThumbnail(), e);
-//    }
+    imageView = (ImageView) v.findViewById(R.id.image);
+    location = (TextView) v.findViewById(R.id.location);
+    screenName = (TextView) v.findViewById(R.id.screen_name);
+    userName = (TextView) v.findViewById(R.id.name);
     return v;
-
   }
 
   // load file from apps res/raw folder or Assets folder

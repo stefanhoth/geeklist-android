@@ -10,6 +10,8 @@
     <string name="auth_hint">OAuth OOB Code</string>
     <string name="button_accept">Accept</string>
     <string name="button_cancel">Cancel</string>
-    <string name="username">username</string>
+    <string name="profile_username">username</string>
+    <string name="profile_screenname">screename</string>
+    <string name="profile_location">location</string>
 
 </resources>
