@@ -2,13 +2,11 @@
 <resources>
 
     <style name="Theme.GeekList.Light" parent="Theme.Sherlock.Light">
-        <item name="android:actionBarTabStyle">@style/GeeklistTabs</item>
+        <item name="actionBarTabStyle">@style/Theme.GeekList.Tabs</item>
     </style>
 
-    <style name="GeeklistTabs" parent="Widget.Sherlock.ActionBar.TabView">
+    <style name="Theme.GeekList.Tabs" parent="Widget.Sherlock.Light.ActionBar.TabView">
         <item name="android:background">@drawable/actionbar_tab_bg</item>
-        <item name="android:paddingLeft">32dp</item>
-        <item name="android:paddingRight">32dp</item>
     </style>
 
 </resources>
