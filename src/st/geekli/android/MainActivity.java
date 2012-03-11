@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TabHost;
@@ -21,16 +20,14 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 
 public class MainActivity extends SherlockFragmentActivity {
-  private ActionBar       actionBar;
-  private FragmentManager fragmentManager;
-  private TabHost         tabHost;
-  private TabManager      tabManager;
+  private ActionBar  actionBar;
+  private TabHost    tabHost;
+  private TabManager tabManager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
-    fragmentManager = getSupportFragmentManager();
 
     tabHost = (TabHost) findViewById(android.R.id.tabhost);
     tabHost.setup();
