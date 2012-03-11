@@ -1,11 +1,13 @@
 package st.geekli.android;
 
-import st.geekli.android.utils.BrowserUtils;
 import st.geekli.api.GeeklistApi;
 import st.geekli.api.GeeklistApiException;
 import android.app.Activity;
 
 public class Api {
+  public interface ApiListener{
+    void isInit();
+  }
   private static GeeklistApi api;
 
   public static GeeklistApi getApi(Activity activity) {
@@ -15,16 +17,16 @@ public class Api {
     return api;
   }
 
-  public static void initApi(final Activity activity) {
+  public static void initApi(final Activity activity, final ApiListener listener) {
     new Thread() {
       public void run() {
         api = new GeeklistApi(Configuration.CONSUMER_KEY, Configuration.CONSUMER_SECRET, true);
         try {
           Configuration.OAUTH_REQUEST = api.getRequestToken(Configuration.CALLBACK_URL);
-          BrowserUtils.openBrowserWithUrl(activity, Configuration.OAUTH_REQUEST);
         } catch (GeeklistApiException e) {
           e.printStackTrace();
         }
+        listener.isInit();
       }
     }.start();
   }

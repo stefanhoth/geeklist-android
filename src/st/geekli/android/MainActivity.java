@@ -64,7 +64,10 @@ public class MainActivity extends SherlockFragmentActivity {
           }
         }
       }.start();
+    } else {
+      showLoginDialog();
     }
+      
   }
 
   @Override
@@ -119,5 +122,15 @@ public class MainActivity extends SherlockFragmentActivity {
     });
     builder.setCancelable(false);
     builder.create().show();
+  }
+  
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == R.id.requestcode_login) {
+      if (RESULT_CANCELED == resultCode) {
+        showLoginDialog();
+      }
+    }
+    super.onActivityResult(requestCode, resultCode, data);
   }
 }
