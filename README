@@ -1,0 +1,7 @@
+The official Android App for geekli.st.
+
+Needs the geeklist Java SDK to be build (https://github.com/stefanhoth/geeklist-sdk-java)
+
+Use mvn clean install -DskipTests to install the SDK to your local repo.
+
+The app itself utilizes ActionBarSherlock Version 4 (https://github.com/JakeWharton/ActionBarSherlock) for compability with Android 2.2 and above.
