@@ -11,6 +11,8 @@ import st.geekli.android.R;
 import st.geekli.android.thread.ImageThreadLoader;
 import st.geekli.android.thread.ImageThreadLoader.ImageLoadedListener;
 import st.geekli.api.GeeklistApiException;
+import st.geekli.api.type.Company;
+import st.geekli.api.type.Stats;
 import st.geekli.api.type.User;
 import android.app.Activity;
 import android.content.res.Resources;
@@ -25,11 +27,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ProfileUserFragment extends Fragment {
-  private Resources resources;
-  private User      user;
-  private ImageView imageView;
-  private Activity  activity;
-  private TextView  screenName, userName, location;
+  private Resources         resources;
+  private User              user;
+  private ImageView         imageView;
+  private Activity          activity;
+  private TextView          screenNameView, userNameView, locationView, companyView, contributionsView,
+      mentionsView, pingsView, cardsView, highfivesView, bioView;
   private ImageThreadLoader loader = new ImageThreadLoader();
 
   @Override
@@ -58,34 +61,49 @@ public class ProfileUserFragment extends Fragment {
         Looper.prepare();
         final Bitmap cache;
         try {
-          System.out.println("a: " + user.getAvatar().getLarge());
           cache = loader.loadImage(user.getAvatar().getLarge(), new ImageLoadedListener() {
             @Override
             public void imageLoaded(final Bitmap imageBitmap) {
               activity.runOnUiThread(new Runnable() {
                 public void run() {
-                  System.out.println("null: " + imageBitmap != null);
                   imageView.setImageBitmap(imageBitmap);
                 }
               });
             }
           });
-          if (cache != null) {
-            activity.runOnUiThread(new Runnable() {
-              public void run() {
+          activity.runOnUiThread(new Runnable() {
+            public void run() {
+              if (cache != null) {
                 imageView.setImageBitmap(cache);
+              } else {
+                imageView.setImageDrawable(activity.getResources().getDrawable(R.drawable.geeklist_logo));
               }
-            });
-          }
+            }
+          });
         } catch (MalformedURLException e) {
-          // TODO Auto-generated catch block
           e.printStackTrace();
         }
         activity.runOnUiThread(new Runnable() {
           public void run() {
-            userName.setText(user.getName());
-            screenName.setText(user.getScreenName());
-            location.setText(user.getLocation());
+            Stats stats = user.getStats();
+            Company company = user.getCompany();
+            userNameView.setText(user.getName());
+            screenNameView.setText(user.getScreenName());
+            locationView.setText(user.getLocation());
+            if (company != null) {
+              companyView.setText(company.getTitle() + " at " + company.getName());
+            }
+            if (user.getBio() != null) {
+              bioView.setText(getString(R.string.profile_bio, user.getBio()));
+            }
+            if (stats != null) {
+              highfivesView.setText(getString(R.string.profile_stats_highfives, stats.getNumberOfHighfives()));
+              mentionsView.setText(getString(R.string.profile_stats_mentions, stats.getNumberOfMentions()));
+              contributionsView.setText(getString(R.string.profile_stats_contributions,
+                                                  stats.getNumberOfContributions()));
+              pingsView.setText(getString(R.string.profile_stats_pings, stats.getNumberOfPings()));
+              cardsView.setText(getString(R.string.profile_stats_cards, stats.getNumberOfCards()));
+            }
           }
         });
       }
@@ -97,12 +115,18 @@ public class ProfileUserFragment extends Fragment {
    */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View v = inflater.inflate(R.layout.profile, container, false);
-    imageView = (ImageView) v.findViewById(R.id.image);
-    location = (TextView) v.findViewById(R.id.location);
-    screenName = (TextView) v.findViewById(R.id.screen_name);
-    userName = (TextView) v.findViewById(R.id.name);
-    return v;
+    View view = inflater.inflate(R.layout.profile, container, false);
+    imageView = (ImageView) view.findViewById(R.id.profile_image);
+    locationView = (TextView) view.findViewById(R.id.profile_location);
+    companyView = (TextView) view.findViewById(R.id.profile_company);
+    screenNameView = (TextView) view.findViewById(R.id.profile_screen_name);
+    userNameView = (TextView) view.findViewById(R.id.profile_name);
+    cardsView = (TextView) view.findViewById(R.id.profile_cards);
+    contributionsView = (TextView) view.findViewById(R.id.profile_contributions);
+    mentionsView = (TextView) view.findViewById(R.id.profile_mentions);
+    highfivesView = (TextView) view.findViewById(R.id.profile_highfives);
+    pingsView = (TextView) view.findViewById(R.id.profile_pings);
+    return view;
   }
 
   // load file from apps res/raw folder or Assets folder

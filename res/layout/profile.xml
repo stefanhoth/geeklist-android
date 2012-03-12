@@ -1,42 +1,161 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="6dp" >
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="4dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/geeklist_logo" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/geeklist"
+            android:padding="1dp" >
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="center"
+                android:src="@drawable/geeklist_logo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="4dp" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@string/profile_about" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingLeft="4dp"
+                android:singleLine="true"
+                android:text="@string/profile_username" />
+
+            <TextView
+                android:id="@+id/profile_screen_name"
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingLeft="4dp"
+                android:singleLine="true"
+                android:text="@string/profile_screenname" />
+
+            <TextView
+                android:id="@+id/profile_location"
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingLeft="4dp"
+                android:singleLine="true"
+                android:text="@string/profile_location" />
+
+            <TextView
+                android:id="@+id/profile_company"
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingLeft="4dp"
+                android:singleLine="true"
+                android:text="@string/profile_company" />
+
+            <TextView
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/profile_bio" />
+
+            <TextView
+                android:id="@+id/profile_bio"
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingLeft="4dp"
+                android:singleLine="true"
+                android:text="@string/profile_bio_text" />
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="20dp"
+        android:singleLine="true"
+        android:text="@string/profile_stats" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/geeklist" />
+
+    <TextView
+        android:id="@+id/profile_highfives"
         style="@android:style/TextAppearance.Small"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="24dp"
         android:singleLine="true"
-        android:text="@string/profile_username" />
+        android:text="@string/profile_stats_highfives" />
 
     <TextView
-        android:id="@+id/screen_name"
+        android:id="@+id/profile_cards"
         style="@android:style/TextAppearance.Small"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:paddingLeft="24dp"
         android:singleLine="true"
-        android:text="@string/profile_screenname" />
+        android:text="@string/profile_stats_cards" />
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/profile_contributions"
         style="@android:style/TextAppearance.Small"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:paddingLeft="24dp"
         android:singleLine="true"
-        android:text="@string/profile_location" />
+        android:text="@string/profile_stats_contributions" />
+
+    <TextView
+        android:id="@+id/profile_mentions"
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:singleLine="true"
+        android:text="@string/profile_stats_mentions" />
+
+    <TextView
+        android:id="@+id/profile_pings"
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:singleLine="true"
+        android:text="@string/profile_stats_pings" />
 
 </LinearLayout>

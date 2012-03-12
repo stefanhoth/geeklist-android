@@ -13,5 +13,15 @@
     <string name="profile_username">username</string>
     <string name="profile_screenname">screename</string>
     <string name="profile_location">location</string>
+    <string name="profile_company">company</string>
+    <string name="profile_bio">bio:</string>
+    <string name="profile_bio_text">bio</string>
+    <string name="profile_about">about:</string>
+    <string name="profile_stats">stats:</string>
+    <string name="profile_stats_highfives">highfives: %1$s</string>
+    <string name="profile_stats_contributions">contributions: %1$s</string>
+    <string name="profile_stats_mentions">mentions: %1$s</string>
+    <string name="profile_stats_cards">cards: %1$s</string>
+    <string name="profile_stats_pings">ping: %1$s</string>
 
 </resources>
