@@ -9,7 +9,7 @@ Libraries
 -----------------
 The app itself utilizes [ActionBarSherlock Version 4] for compability with Android 2.2 and above.
 
-Furthermore Google GSON is used for JSON deserialization (resolved by Maven)
+Furthermore [Google Gson] is used for JSON deserialization (resolved by Maven)
 
 Commiters
 -----------------
@@ -23,6 +23,7 @@ Code-Slaves<br/>
 
 [geeklist Java SDK]: https://github.com/stefanhoth/geeklist-sdk-java
 [ActionBarSherlock Version 4]: https://github.com/JakeWharton/ActionBarSherlocki
+[Google Gson]: http://code.google.com/p/google-gson/
 [Krzysiek Bielicki]: https://github.com/krzysiekbielicki
 [Hasan Hosgel]: https://github.com/alosdev
 [Tim Messerschmidt]: https://github.com/seraphimserapis
