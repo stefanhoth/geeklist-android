@@ -5,7 +5,11 @@ Needs the [geeklist Java SDK] to be build.
 
  - Use mvn clean install -DskipTests to install the SDK to your local repo.
 
+Libraries
+-----------------
 The app itself utilizes [ActionBarSherlock Version 4] for compability with Android 2.2 and above.
+
+Furthermore Google GSON is used for JSON deserialization (resolved by Maven)
 
 Commiters
 -----------------
